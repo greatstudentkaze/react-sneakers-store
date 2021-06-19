@@ -1,0 +1,56 @@
+@import "../mixins";
+
+.user-list {
+  @include reset-list;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-list__item {
+  &:not(:last-child) {
+    margin-right: 30px;
+  }
+
+  a {
+    display: inline-block;
+    padding-left: 30px;
+
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #5c5c5c;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left center;
+
+    transition: opacity 0.3s ease-in-out 0s, transform 0.3s ease-in-out 0s;
+
+    &[href]:hover,
+    &[href]:focus {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+
+    &[href]:active {
+      opacity: 0.6;
+    }
+
+    span {
+      display: inline-block;
+    }
+  }
+
+  &--icon {
+    a {
+      display: block;
+      width: 20px;
+      height: 20px;
+
+      padding-left: 0;
+
+      background-position: center;
+    }
+  }
+}
