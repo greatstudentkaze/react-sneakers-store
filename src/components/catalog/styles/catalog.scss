@@ -1,0 +1,69 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.catalog {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.catalog__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.catalog__title {
+  margin: 0;
+
+  font-size: 32px;
+  line-height: 39px;
+  font-weight: bold;
+}
+
+.catalog__search {
+  display: block;
+  max-width: 250px;
+  margin-left: auto;
+  padding-top: 12px;
+  padding-right: 15px;
+  padding-bottom: 14px;
+  padding-left: 45px;
+
+  font: inherit;
+  font-size: 14px;
+  line-height: 17px;
+  color: #c4c4c4;
+
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: left 15px center;
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  outline-offset: 5px;
+
+  transition: border-color 0.3s ease-in-out 0s;
+
+  &:focus {
+    border-color: #d6d6d6;
+    outline: none;
+  }
+
+  &:focus-visible {
+    //box-shadow: 0 0 0 3px $white, 0 0 0 5px $black;
+  }
+
+  &::placeholder {
+    color: #c4c4c4;
+    opacity: 1;
+  }
+}
+
+.catalog__list {
+  @include reset-list;
+
+  display: grid;
+  grid-template-columns: repeat(4, 210px);
+  gap: 40px;
+}
