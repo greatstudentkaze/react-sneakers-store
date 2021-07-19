@@ -1,0 +1,104 @@
+@import "../../../styles/variables";
+
+.cart-item {
+  display: grid;
+  grid-template-areas:
+    "image title button"
+    "image price button";
+  grid-template-columns: 70px 1fr 32px;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 8px;
+  padding: 30px 20px;
+
+  color: $black;
+
+  background-color: $white;
+  border: 1px solid #f3f3f3;
+  border-radius: 20px;
+}
+
+.cart-item__link {
+  grid-area: image;
+  display: block;
+  align-self: center;
+}
+
+.cart-item__image {
+  display: block;
+  margin: 0;
+  width: 70px;
+  height: auto;
+  object-fit: cover;
+}
+
+.cart-item__title {
+  grid-area: title;
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: normal;
+}
+
+.cart-item__price {
+  grid-area: price;
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: bold;
+  color: $black;
+}
+
+// todo: combine with wishlist button
+.cart-item__remove-button {
+  grid-area: button;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+
+  background-color: $white;
+  border: 1px solid #f2f2f2;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out 0s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:enabled:hover,
+  &:focus-visible {
+    background-color: #d3d3d3;
+
+    svg {
+      path {
+        fill: $white;
+      }
+    }
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px $white, 0 0 0 4px $black;
+  }
+
+  &:enabled:active {
+    transform: scale(0.9);
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+
+    path {
+      fill: #d3d3d3;
+
+      transition: all 0.3s ease-in-out 0s;
+    }
+  }
+}
