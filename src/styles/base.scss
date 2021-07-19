@@ -22,6 +22,11 @@ body {
   background-color: $background-color;
 
   cursor: default;
+
+  &.no-scroll {
+    overflow: hidden;
+    margin-right: 17px;
+  }
 }
 
 a {
