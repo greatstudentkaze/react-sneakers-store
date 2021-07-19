@@ -49,29 +49,33 @@ const CardItem = ({ title, imageSrc, index, price }: Props) => {
           {/*todo: ally*/}
           {
             isAddedToCart
-              ? <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_d)" clipPath="url(#clip0)">
-                  <path d="M9.657 1.62a.982.982 0 011.402 1.375L5.833 9.53a.982.982 0 01-1.414.027L.954 6.092a.982.982 0 111.39-1.389l2.74 2.742L9.631 1.65a.326.326 0 01.026-.03z"
-                        fill="#fff"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0">
-                    <path transform="translate(.667 .667)" d="M0 0h10.667v10.667H0z"/>
-                  </clipPath>
-                  <filter id="filter0_d" x=".667" y="1.33" width="10.67" height="10.513" filterUnits="userSpaceOnUse"
-                          colorInterpolationFilters="sRGB">
-                    <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-                    <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                    <feOffset dy="2"/>
-                    <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
-                    <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                    <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                  </filter>
-                </defs>
-              </svg>
-              : <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-                <path d="M10.6653 5.13122H7.20214V1.66821C7.20214 0.332846 5.13114 0.332846 5.13114 1.66821V5.13122H1.668C0.332935 5.13122 0.332935 7.20215 1.668 7.20215H5.13114V10.6652C5.13114 12.0005 7.20214 12.0005 7.20214 10.6652V7.20215H10.6653C12.0005 7.20215 12.0005 5.13122 10.6653 5.13122Z"/>
-              </svg>
+              ? (
+                <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g filter="url(#filter0_d)" clipPath="url(#clip0)">
+                    <path d="M9.657 1.62a.982.982 0 011.402 1.375L5.833 9.53a.982.982 0 01-1.414.027L.954 6.092a.982.982 0 111.39-1.389l2.74 2.742L9.631 1.65a.326.326 0 01.026-.03z"
+                          fill="#fff"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0">
+                      <path transform="translate(.667 .667)" d="M0 0h10.667v10.667H0z"/>
+                    </clipPath>
+                    <filter id="filter0_d" x=".667" y="1.33" width="10.67" height="10.513" filterUnits="userSpaceOnUse"
+                            colorInterpolationFilters="sRGB">
+                      <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+                      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                      <feOffset dy="2"/>
+                      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                      <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                    </filter>
+                  </defs>
+                </svg>
+              )
+              : (
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M10.6653 5.13122H7.20214V1.66821C7.20214 0.332846 5.13114 0.332846 5.13114 1.66821V5.13122H1.668C0.332935 5.13122 0.332935 7.20215 1.668 7.20215H5.13114V10.6652C5.13114 12.0005 7.20214 12.0005 7.20214 10.6652V7.20215H10.6653C12.0005 7.20215 12.0005 5.13122 10.6653 5.13122Z"/>
+                </svg>
+              )
           }
         </button>
       </footer>
