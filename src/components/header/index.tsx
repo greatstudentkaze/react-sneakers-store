@@ -6,7 +6,17 @@ import cartIconSrc from '../../assets/images/icon/cart.svg';
 import wishlistIconSrc from '../../assets/images/icon/wishlist-nav.svg';
 import loginIconSrc from '../../assets/images/icon/login.svg';
 
-const Header = () => {
+interface HeaderProps {
+  openCartPanel: () => void,
+}
+
+const Header = ({ openCartPanel }: HeaderProps) => {
+
+  const handleCartButtonClick = (evt: React.SyntheticEvent) => {
+    evt.preventDefault();
+    openCartPanel();
+  }
+
   return (
     <header className="header">
       <div className="header__container">
@@ -16,7 +26,7 @@ const Header = () => {
         <nav>
           <ul className="user-list">
             <li className="user-list__item">
-              <a href="/" style={{ backgroundImage: `url("${cartIconSrc}")` }}>
+              <a href="/" style={{ backgroundImage: `url("${cartIconSrc}")` }} onClick={handleCartButtonClick}>
                 <span className="visually-hidden">Корзина:</span>
                 <span>1205 руб.</span>
               </a>

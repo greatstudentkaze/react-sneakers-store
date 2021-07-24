@@ -29,7 +29,7 @@ const App = () => {
   return (
     <>
       <div className="main-wrapper">
-        <Header />
+        <Header openCartPanel={() => setIsCatPanelOpened(true)} />
         <main className="main">
           {isError && 'Что-то пошло не так...'}
           {isLoading ? (
