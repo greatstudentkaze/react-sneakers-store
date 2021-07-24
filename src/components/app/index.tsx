@@ -11,9 +11,21 @@ const API_URL = 'https://60151aae55dfbd00174c9fa6.mockapi.io/sneakers/';
 
 type Data = SneakersItem[];
 
+const LOCAL_STORAGE_KEY = 'REACT_SNEAKERS_STORE';
+
 const App = () => {
   const [isCartPanelOpened, setIsCatPanelOpened] = useState(false);
-  const [cartItems, setCartItems] = useState<SneakersItem[]>([]);
+  const [cartItems, setCartItems] = useState<SneakersItem[]>(() => {
+    const initialValue = [] as SneakersItem[];
+
+    try {
+      const item = localStorage.getItem(LOCAL_STORAGE_KEY);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (err) {
+      console.error(err);
+      return initialValue;
+    }
+  });
 
   const [{ data: sneakers, isLoading, isError }, doFetch] = useDataAPI<Data>(API_URL, []);
 
@@ -35,6 +47,10 @@ const App = () => {
       ? document.body.classList.add('no-scroll')
       : document.body.classList.remove('no-scroll');
   }, [isCartPanelOpened]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <>
