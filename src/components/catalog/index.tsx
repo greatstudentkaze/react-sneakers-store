@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CardItem from '../card-item';
 import './styles/catalog.scss';
@@ -13,19 +13,34 @@ interface Props {
 }
 
 const Catalog = ({ title, items, addItemToCart, removeItemFromCart }: Props) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredItems = searchQuery.trim()
+    ? items.filter(it => it.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    : items;
 
   return (
     <section className="catalog">
       <header className="catalog__header">
-        <h2 className="catalog__title">{title}</h2>
+        <h2 className="catalog__title">
+          {searchQuery.trim() ? `Поиск по запросу: ${searchQuery}` : title}
+        </h2>
         <label htmlFor="catalog-search" className="visually-hidden">Поиск товара в каталоге</label>
-        <input className="catalog__search" type="text" id="catalog-search" placeholder="Поиск..." style={{ backgroundImage: `url("${searchIconSrc}")` }} />
+        <input
+          className="catalog__search"
+          type="text"
+          id="catalog-search"
+          placeholder="Поиск..."
+          style={{ backgroundImage: `url("${searchIconSrc}")` }}
+          value={searchQuery}
+          onChange={evt => setSearchQuery(evt.target.value)}
+        />
       </header>
       <ul className="catalog__list">
         {
-          !items.length
+          !filteredItems.length
             ? 'Товары не найдены 😓'
-            : items.map((item, i) => <li key={item.id}>
+            : filteredItems.map((item, i) => <li key={item.id}>
               <CardItem
                 title={item.title}
                 imageSrc={item.imageSrc}
