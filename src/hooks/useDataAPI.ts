@@ -1,6 +1,8 @@
 import { useEffect, useState, useReducer } from 'react';
 import axios from 'axios';
 
+const source = axios.CancelToken.source();
+
 interface State {
   isLoading: boolean,
   isError: boolean,
@@ -51,14 +53,16 @@ const useDataAPI = <T>(initialURL: string, initialData: T) => {
       dispatch({ type: 'FETCH_INIT' });
 
       try {
-        const { data } = await axios.get<typeof initialData>(url);
+        const { data } = await axios.get<typeof initialData>(url, { cancelToken: source.token });
 
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload: data });
+          source.cancel('Operation canceled due to component unmounting');
         }
       } catch (err) {
         if (!didCancel) {
           dispatch({ type: 'FETCH_FAILURE' });
+          source.cancel('Operation canceled due to component unmounting');
         }
       }
     };
