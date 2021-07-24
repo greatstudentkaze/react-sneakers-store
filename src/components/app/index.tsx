@@ -35,6 +35,11 @@ const App = () => {
   };
 
   const addCartItem = (item: SneakersItem) => {
+    // quick fix
+    if (cartItems.find(it => it.id === item.id)) {
+      return;
+    }
+
     setCartItems((prevItems) => [...prevItems, item]);
   };
 
