@@ -45,19 +45,29 @@ const useDataAPI = <T>(initialURL: string, initialData: T) => {
   });
 
   useEffect(() => {
+    let didCancel = false;
+
     const fetchData = async () => {
       dispatch({ type: 'FETCH_INIT' });
 
       try {
         const { data } = await axios.get<typeof initialData>(url);
 
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        if (!didCancel) {
+          dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        }
       } catch (err) {
-        dispatch({ type: 'FETCH_FAILURE' });
+        if (!didCancel) {
+          dispatch({ type: 'FETCH_FAILURE' });
+        }
       }
     };
 
     fetchData();
+
+    return () => {
+      didCancel = true;
+    };
   }, [url]);
 
   return [state, setURL] as const;
