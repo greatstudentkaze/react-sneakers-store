@@ -3,45 +3,14 @@ import React from 'react';
 import CardItem from '../card-item';
 import './styles/catalog.scss';
 import searchIconSrc from '../../assets/images/icon/search.svg';
+import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 interface Props {
-  title: string
+  title: string,
+  items: SneakersItem[],
 }
 
-const catalog = [
-  {
-    id: '123',
-    title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-    price: 12999,
-    currency: 'RUB',
-    imageSrc: {
-      '1x': 'catalog/sneakers/nike-blazer-mid-suede.jpg',
-      '2x': 'catalog/sneakers/nike-blazer-mid-suede@2x.jpg',
-    },
-  },
-  {
-    id: '1234',
-    title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-    price: 12999,
-    currency: 'RUB',
-    imageSrc: {
-      '1x': 'catalog/sneakers/nike-blazer-mid-suede.jpg',
-      '2x': 'catalog/sneakers/nike-blazer-mid-suede@2x.jpg',
-    },
-  },
-  {
-    id: '12345',
-    title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-    price: 12999,
-    currency: 'RUB',
-    imageSrc: {
-      '1x': 'catalog/sneakers/nike-blazer-mid-suede.jpg',
-      '2x': 'catalog/sneakers/nike-blazer-mid-suede@2x.jpg',
-    },
-  },
-];
-
-const Catalog = ({ title }: Props) => {
+const Catalog = ({ title, items }: Props) => {
   return (
     <section className="catalog">
       <header className="catalog__header">
@@ -51,9 +20,9 @@ const Catalog = ({ title }: Props) => {
       </header>
       <ul className="catalog__list">
         {
-          !catalog.length
-            ? ': - ('
-            : catalog.map((item, i) => <li key={item.id}>
+          !items.length
+            ? 'Товары не найдены 😓'
+            : items.map((item, i) => <li key={item.id}>
               <CardItem title={item.title} imageSrc={item.imageSrc} index={i} price={item.price} currency={item.currency} />
             </li>)
         }
