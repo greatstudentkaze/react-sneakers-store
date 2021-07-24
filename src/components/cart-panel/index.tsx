@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SneakersItem } from '../../interfaces/sneakers.interface';
+
 import CartItem from '../cart-item';
 import './styles/cart-panel.scss';
 import './styles/empty-cart.scss';
@@ -7,11 +9,11 @@ import emptyBoxSrc from '../../assets/images/empty-box.png';
 
 interface CartPanelProps {
   close: () => void,
+  items: SneakersItem[],
+  removeItem: (id: SneakersItem['id']) => void,
 }
 
-const cart: any[] = [];
-
-const EmptyCart = ({ close }: CartPanelProps) => (
+const EmptyCart = ({ close }: { close: CartPanelProps['close'] }) => (
   <div className="empty-cart">
     <img className="empty-cart__image" src={emptyBoxSrc} width="120" height="120" alt="" />
     <p className="empty-cart__title">Корзина пустая</p>
@@ -27,19 +29,27 @@ const EmptyCart = ({ close }: CartPanelProps) => (
   </div>
 );
 
-const CartPanel = ({ close }: CartPanelProps) => {
+const CartPanel = ({ close, items, removeItem }: CartPanelProps) => {
   return (
     <div className="overlay" onClick={close}>
       <section className="cart-panel" onClick={evt => evt.stopPropagation()}>
         <h2 className="cart-panel__title">Корзина</h2>
         {
-          !cart.length
+          !items.length
             ? <EmptyCart close={close} />
             : <>
               <ul className="cart-panel__list">
-                {cart.map((item, i) => (
+                {items.map((item, i) => (
                   <li key={item.id}>
-                    <CartItem title={item.title} imageSrc={item.imageSrc} index={i} price={item.price} currency={item.currency} />
+                    <CartItem
+                      title={item.title}
+                      imageSrc={item.imageSrc}
+                      index={i}
+                      price={item.price}
+                      currency={item.currency}
+                      id={item.id}
+                      remove={removeItem}
+                    />
                   </li>
                 ))}
               </ul>

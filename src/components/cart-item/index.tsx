@@ -1,22 +1,18 @@
 import React from 'react';
 
+import { SneakersItem } from '../../interfaces/sneakers.interface';
+
 import './styles/cart-item.scss';
 
-interface Props {
-  title: string,
-  imageSrc: {
-    '1x': string,
-    '2x'?: string,
-  },
+type Props = SneakersItem & {
   index: number,
-  price: number,
-  currency: string,
+  remove: (id: SneakersItem['id']) => void,
 }
 
-const CartItem = ({ title, imageSrc, index, price }: Props) => {
+const CartItem = ({ title, imageSrc, index, price, remove, id }: Props) => {
 
   const handleRemoveButtonClick = () => {
-    console.log('click');
+    remove(id);
   };
 
   return (

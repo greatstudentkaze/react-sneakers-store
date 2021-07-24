@@ -1,6 +1,6 @@
 export interface ImageSrc {
   '1x': string;
-  '2x': string;
+  '2x'?: string;
 }
 
 export interface SneakersItem {

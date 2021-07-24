@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 
+import { SneakersItem } from '../../interfaces/sneakers.interface';
+
 import './styles/card-item.scss';
 
-interface Props {
-  title: string,
-  imageSrc: {
-    '1x': string,
-    '2x'?: string,
-  },
+type Props = SneakersItem & {
   index: number,
-  price: number,
-  currency: string,
+  addItemToCart: (item: SneakersItem) => void,
+  removeItemFromCart: (id: SneakersItem['id']) => void,
 }
 
-const CardItem = ({ title, imageSrc, index, price }: Props) => {
+const CardItem = ({ title, imageSrc, index, price, currency, id, addItemToCart, removeItemFromCart }: Props) => {
   const [isWished, setIsWished] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
@@ -22,6 +19,9 @@ const CardItem = ({ title, imageSrc, index, price }: Props) => {
   };
 
   const handleCartButtonClick = () => {
+    isAddedToCart
+      ? removeItemFromCart(id)
+      : addItemToCart({ id, title, price, currency, imageSrc });
     setIsAddedToCart((prevState) => !prevState);
   };
 

@@ -8,9 +8,12 @@ import { SneakersItem } from '../../interfaces/sneakers.interface';
 interface Props {
   title: string,
   items: SneakersItem[],
+  addItemToCart: (item: SneakersItem) => void,
+  removeItemFromCart: (id: SneakersItem['id']) => void,
 }
 
-const Catalog = ({ title, items }: Props) => {
+const Catalog = ({ title, items, addItemToCart, removeItemFromCart }: Props) => {
+
   return (
     <section className="catalog">
       <header className="catalog__header">
@@ -23,7 +26,16 @@ const Catalog = ({ title, items }: Props) => {
           !items.length
             ? 'Товары не найдены 😓'
             : items.map((item, i) => <li key={item.id}>
-              <CardItem title={item.title} imageSrc={item.imageSrc} index={i} price={item.price} currency={item.currency} />
+              <CardItem
+                title={item.title}
+                imageSrc={item.imageSrc}
+                index={i}
+                price={item.price}
+                currency={item.currency}
+                id={item.id}
+                addItemToCart={addItemToCart}
+                removeItemFromCart={removeItemFromCart}
+              />
             </li>)
         }
         <li>
