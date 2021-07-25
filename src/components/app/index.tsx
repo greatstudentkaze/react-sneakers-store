@@ -27,7 +27,7 @@ const App = () => {
   }, [doFetch]);
 
   return (
-    <AppContextProvider sneakers={data} areSneakersLoading={areSneakersLoading} isSneakersLoadingError={isError} showLoader={showLoader} hideLoader={hideLoader}>
+    <AppContextProvider sneakers={data} areSneakersLoading={areSneakersLoading} isSneakersLoadingError={isError} isLoading={isLoading} showLoader={showLoader} hideLoader={hideLoader}>
       <div className="main-wrapper">
         <Header openCartPanel={openCartPanel} />
         <Route path="/" exact>

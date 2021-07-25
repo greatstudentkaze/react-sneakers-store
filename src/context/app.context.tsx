@@ -10,6 +10,7 @@ export interface IAppContext {
   sneakers: SneakersItem[],
   areSneakersLoading: boolean,
   isSneakersLoadingError: boolean,
+  isLoading: boolean,
   showLoader: () => void,
   hideLoader: () => void,
 }
@@ -19,6 +20,7 @@ export interface ICartContext {
   addItemToCart: (item: SneakersItem) => void,
   removeItemFromCartById: (id: SneakersItem['id']) => void,
   isItemAddedToCart: (itemId: SneakersItem['id']) => boolean,
+  clearCart: () => void,
 }
 
 export interface IWishlistContext {
@@ -34,12 +36,14 @@ const defaultValue = {
   sneakers: [],
   areSneakersLoading: false,
   isSneakersLoadingError: false,
+  isLoading: false,
   showLoader: () => {},
   hideLoader: () => {},
   cartItems: [],
   removeItemFromCartById: () => {},
   addItemToCart: () => {},
   isItemAddedToCart: () => false,
+  clearCart: () => {},
   wishlistItems: [],
   areWishlistItemsLoading: false,
   isWishlistError: false,
@@ -54,12 +58,13 @@ type AppContextProviderProps = {
   sneakers: SneakersItem[],
   areSneakersLoading: boolean,
   isSneakersLoadingError: boolean,
+  isLoading: boolean,
   showLoader: () => void,
   hideLoader: () => void,
 }
 
 export const AppContextProvider = (props: PropsWithChildren<AppContextProviderProps>): JSX.Element => {
-  const { sneakers, isSneakersLoadingError, areSneakersLoading, showLoader, hideLoader, children } = props;
+  const { sneakers, isSneakersLoadingError, isLoading, areSneakersLoading, showLoader, hideLoader, children } = props;
 
   const [cartItems, setCartItems] = useState<SneakersItem[]>(getCartItemsFromLocalStorage);
   const [
@@ -76,6 +81,8 @@ export const AppContextProvider = (props: PropsWithChildren<AppContextProviderPr
     const updated = cartItems.filter(it => it.id !== id);
     setCartItems(updated);
   };
+
+  const clearCart = () => setCartItems([]);
 
   const addItemToCart = (item: SneakersItem) => {
     setCartItems((prevItems) => [...prevItems, item]);
@@ -123,9 +130,11 @@ export const AppContextProvider = (props: PropsWithChildren<AppContextProviderPr
       sneakers,
       areSneakersLoading,
       isSneakersLoadingError,
+      isLoading,
       showLoader,
       hideLoader,
       cartItems,
+      clearCart,
       removeItemFromCartById,
       addItemToCart,
       isItemAddedToCart,

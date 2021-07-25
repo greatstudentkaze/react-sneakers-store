@@ -106,6 +106,12 @@
     }
   }
 
+  &:disabled {
+    background-color: #bebebe;
+
+    cursor: not-allowed;
+  }
+
   &--arrow-left {
     padding-left: 40px;
 
@@ -120,5 +126,11 @@
         transform: translateY(-50%) translateX(-5px);
       }
     }
+  }
+}
+
+.cart-panel__order-confirmed {
+  .info-block__title {
+    color: $light-green;
   }
 }

@@ -1,4 +1,5 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import cn from 'classnames';
 
 import './styles/info-block.scss';
 
@@ -14,9 +15,9 @@ interface InfoBlockProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement
   onButtonClick: () => void,
 }
 
-const InfoBlock = ({ title, description, imageData, buttonText = 'Вернуться назад', onButtonClick }: InfoBlockProps) => {
+const InfoBlock = ({ title, description, imageData, buttonText = 'Вернуться назад', onButtonClick, className, ...props }: InfoBlockProps) => {
   return (
-    <div className="info-block">
+    <div className={cn('info-block', className)} {...props}>
       <img className="info-block__image" src={imageData.src} width={imageData.width} height={imageData.height} alt="" />
       <p className="info-block__title">{title}</p>
       <p className="info-block__info">{description}</p>
