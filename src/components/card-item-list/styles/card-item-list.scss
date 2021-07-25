@@ -1,0 +1,9 @@
+@import "../../../styles/mixins";
+
+.card-item-list {
+  @include reset-list;
+
+  display: grid;
+  grid-template-columns: repeat(4, 210px);
+  gap: 40px;
+}
