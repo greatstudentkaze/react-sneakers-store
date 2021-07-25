@@ -9,4 +9,5 @@ export interface SneakersItem {
   price: number;
   currency: string;
   imageSrc: ImageSrc;
+  uid?: string;
 }

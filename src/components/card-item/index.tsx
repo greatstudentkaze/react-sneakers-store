@@ -8,13 +8,22 @@ type Props = SneakersItem & {
   index: number,
 }
 
-const CardItem = ({ title, imageSrc, index, price, currency, id }: Props) => {
-  const { removeItemFromCartById, addItemToCart, isItemAddedToCart, isItemWishlisted, } = useContext(AppContext);
+const CardItem = ({ title, imageSrc, index, price, currency, id, uid }: Props) => {
+  const {
+    removeItemFromCartById,
+    addItemToCart,
+    isItemAddedToCart,
+    addItemToWishlist,
+    removeItemFromWishlistById,
+    isItemWishlisted,
+  } = useContext(AppContext);
   const isAddedToCart = isItemAddedToCart(id);
   const isWished = isItemWishlisted(id);
 
   const handleWishButtonClick = () => {
-    console.log(isWished);
+    isWished
+      ? removeItemFromWishlistById(id)
+      : addItemToWishlist({ id, title, price, currency, imageSrc });
   };
 
   const handleCartButtonClick = () => {
