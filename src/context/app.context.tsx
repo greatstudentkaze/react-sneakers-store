@@ -8,6 +8,7 @@ import { SneakersItem } from '../interfaces/sneakers.interface';
 export interface IAppContext {
   sneakers: SneakersItem[],
   areSneakersLoading: boolean,
+  isSneakersLoadingError: boolean,
 }
 
 export interface ICartContext {
@@ -25,6 +26,7 @@ export interface IWishlistContext {
 const defaultValue = {
   sneakers: [],
   areSneakersLoading: false,
+  isSneakersLoadingError: false,
   cartItems: [],
   removeItemFromCartById: () => {},
   addItemToCart: () => {},
@@ -35,7 +37,7 @@ const defaultValue = {
 
 export const AppContext = createContext<IAppContext & ICartContext & IWishlistContext>(defaultValue);
 
-export const AppContextProvider = ({ sneakers, areSneakersLoading, children }: PropsWithChildren<IAppContext>): JSX.Element => {
+export const AppContextProvider = ({ sneakers, isSneakersLoadingError, areSneakersLoading, children }: PropsWithChildren<IAppContext>): JSX.Element => {
   const [cartItems, setCartItems] = useState<SneakersItem[]>(getCartItemsFromLocalStorage);
   const [
     { isError: isWishlistError, isLoading: areWishlistItemsLoading, data: wishlistItems, },
@@ -67,8 +69,9 @@ export const AppContextProvider = ({ sneakers, areSneakersLoading, children }: P
   return (
     <AppContext.Provider value={{
       sneakers,
-      cartItems,
       areSneakersLoading,
+      isSneakersLoadingError,
+      cartItems,
       removeItemFromCartById,
       addItemToCart,
       isWishlistError,

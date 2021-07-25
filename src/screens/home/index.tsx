@@ -1,12 +1,12 @@
-import React from 'react';
+import { useContext } from 'react';
+
+import { AppContext } from '../../context/app.context';
 
 import Catalog from '../../components/catalog';
 
-interface HomeProps {
-  isError: boolean,
-}
+const Home = () => {
+  const { isSneakersLoadingError: isError } = useContext(AppContext);
 
-const Home = ({ isError }: HomeProps) => {
   return (
     <main className="main">
       {isError

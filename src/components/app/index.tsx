@@ -14,13 +14,13 @@ import Wishlist from '../../screens/wishlist';
 type Data = SneakersItem[];
 
 const App = () => {
-  const [isCartPanelOpened, setIsCatPanelOpened] = useState(false);
-
-  const [{ data: sneakers, isLoading, isError }, doFetch] = useDataAPI<Data>(API.SNEAKERS, []);
+  const [{ data, isLoading, isError }, doFetch] = useDataAPI<Data>(API.SNEAKERS, []);
 
   useEffect(() => {
     doFetch(API.SNEAKERS);
   }, [doFetch]);
+
+  const [isCartPanelOpened, setIsCatPanelOpened] = useState(false);
 
   useEffect(() => {
     isCartPanelOpened
@@ -29,11 +29,11 @@ const App = () => {
   }, [isCartPanelOpened]);
 
   return (
-    <AppContextProvider sneakers={sneakers} areSneakersLoading={isLoading} >
+    <AppContextProvider sneakers={data} areSneakersLoading={isLoading} isSneakersLoadingError={isError} >
       <div className="main-wrapper">
         <Header openCartPanel={() => setIsCatPanelOpened(true)} />
         <Route path="/" exact>
-          <Home isError={isError} />
+          <Home />
         </Route>
         <Route path="/wishlist" exact>
           <Wishlist />
