@@ -22,12 +22,8 @@ const renderItems = (
   if (items.length > 0) {
     return items.map((item, i) => <li key={item.id}>
       <CardItem
-        title={item.title}
-        imageSrc={item.imageSrc}
         index={i}
-        price={item.price}
-        currency={item.currency}
-        id={item.id}
+        {...item}
       />
     </li>);
   }

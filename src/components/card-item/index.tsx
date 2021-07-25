@@ -1,36 +1,37 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import cn from 'classnames';
 
 import { AppContext } from '../../context/app.context';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 type Props = SneakersItem & {
   index: number,
-  isAddedToWishlist?: boolean,
 }
 
-const CardItem = ({ title, imageSrc, index, price, currency, id, isAddedToWishlist = false }: Props) => {
-  const {
-    removeItemFromCartById,
-    addItemToCart
-  } = useContext(AppContext);
-
-  const [isWished, setIsWished] = useState(isAddedToWishlist);
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
+const CardItem = ({ title, imageSrc, index, price, currency, id }: Props) => {
+  const { removeItemFromCartById, addItemToCart, isItemAddedToCart, isItemWishlisted, } = useContext(AppContext);
+  const isAddedToCart = isItemAddedToCart(id);
+  const isWished = isItemWishlisted(id);
 
   const handleWishButtonClick = () => {
-    setIsWished((prevState) => !prevState);
+    console.log(isWished);
   };
 
   const handleCartButtonClick = () => {
     isAddedToCart
       ? removeItemFromCartById(id)
       : addItemToCart({ id, title, price, currency, imageSrc });
-    setIsAddedToCart((prevState) => !prevState);
   };
 
   return (
     <div className="card-item">
-      <button className={`card-item__wishlist-button ${isWished && 'card-item__wishlist-button--active'}`} type="button" onClick={handleWishButtonClick}>
+      <button
+        className={cn('card-item__wishlist-button', {
+          'card-item__wishlist-button--active' : isWished
+        })}
+        type="button"
+        onClick={handleWishButtonClick}
+      >
         <span className="visually-hidden">Добавить в избранное</span>
         {/*todo: ally*/}
         <svg width="15" height="14" aria-hidden="true">
@@ -38,7 +39,14 @@ const CardItem = ({ title, imageSrc, index, price, currency, id, isAddedToWishli
         </svg>
       </button>
       <a className="card-item__link" href="/">
-        <img className="card-item__image" src={imageSrc['1x']} srcSet={`${imageSrc['2x']} 2x`} width="133" height="112" alt="" aria-labelledby={`title-${index}`} />
+        <img
+          className="card-item__image"
+          src={imageSrc['1x']} srcSet={`${imageSrc['2x']} 2x`}
+          width="133"
+          height="112"
+          alt=""
+          aria-labelledby={`title-${index}`}
+        />
       </a>
       <h3 className="card-item__title" id={`title-${index}`}>{title}</h3>
       <footer className="card-item__footer">
@@ -47,7 +55,13 @@ const CardItem = ({ title, imageSrc, index, price, currency, id, isAddedToWishli
           {/*todo: format price 12 999 руб.*/}
           <span>{price}</span>
         </p>
-        <button className={`card-item__cart-button ${isAddedToCart && 'card-item__cart-button--active'}`} type="button" onClick={handleCartButtonClick}>
+        <button
+          className={cn('card-item__cart-button', {
+            'card-item__cart-button--active': isAddedToCart,
+          })}
+          type="button"
+          onClick={handleCartButtonClick}
+        >
           <span className="visually-hidden">Добавить в корзину</span>
           {/*todo: ally*/}
           {

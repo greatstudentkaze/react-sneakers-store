@@ -15,12 +15,14 @@ export interface ICartContext {
   cartItems: SneakersItem[],
   addItemToCart: (item: SneakersItem) => void,
   removeItemFromCartById: (id: SneakersItem['id']) => void,
+  isItemAddedToCart: (itemId: SneakersItem['id']) => boolean,
 }
 
 export interface IWishlistContext {
   wishlistItems: SneakersItem[],
   areWishlistItemsLoading: boolean,
   isWishlistError: boolean,
+  isItemWishlisted: (itemId: SneakersItem['id']) => boolean,
 }
 
 const defaultValue = {
@@ -30,9 +32,11 @@ const defaultValue = {
   cartItems: [],
   removeItemFromCartById: () => {},
   addItemToCart: () => {},
+  isItemAddedToCart: () => false,
   wishlistItems: [],
   areWishlistItemsLoading: false,
   isWishlistError: false,
+  isItemWishlisted: () => false,
 };
 
 export const AppContext = createContext<IAppContext & ICartContext & IWishlistContext>(defaultValue);
@@ -40,7 +44,7 @@ export const AppContext = createContext<IAppContext & ICartContext & IWishlistCo
 export const AppContextProvider = ({ sneakers, isSneakersLoadingError, areSneakersLoading, children }: PropsWithChildren<IAppContext>): JSX.Element => {
   const [cartItems, setCartItems] = useState<SneakersItem[]>(getCartItemsFromLocalStorage);
   const [
-    { isError: isWishlistError, isLoading: areWishlistItemsLoading, data: wishlistItems, },
+    { isError: isWishlistError, isLoading: areWishlistItemsLoading, data: wishlistItems },
     doWishlistFetch
   ] = useDataAPI<SneakersItem[]>(API.WISHLIST, []);
 
@@ -50,12 +54,11 @@ export const AppContextProvider = ({ sneakers, isSneakersLoadingError, areSneake
   };
 
   const addItemToCart = (item: SneakersItem) => {
-    // quick fix
-    if (cartItems.find(it => it.id === item.id)) {
-      return;
-    }
-
     setCartItems((prevItems) => [...prevItems, item]);
+  };
+
+  const isItemAddedToCart = (itemId: SneakersItem['id']) => {
+    return cartItems.some(it => it.id === itemId);
   };
 
   useEffect(() => {
@@ -66,6 +69,10 @@ export const AppContextProvider = ({ sneakers, isSneakersLoadingError, areSneake
     doWishlistFetch(API.WISHLIST);
   }, [doWishlistFetch]);
 
+  const isItemWishlisted = (itemId: SneakersItem['id']) => {
+    return wishlistItems.some((it: SneakersItem) => it.id === itemId);
+  };
+
   return (
     <AppContext.Provider value={{
       sneakers,
@@ -74,9 +81,11 @@ export const AppContextProvider = ({ sneakers, isSneakersLoadingError, areSneake
       cartItems,
       removeItemFromCartById,
       addItemToCart,
+      isItemAddedToCart,
       isWishlistError,
       areWishlistItemsLoading,
       wishlistItems,
+      isItemWishlisted,
     }}>
       {children}
     </AppContext.Provider>
