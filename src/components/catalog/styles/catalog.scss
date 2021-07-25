@@ -16,11 +16,6 @@
 
 .catalog__title {
   max-width: 600px;
-  margin: 0;
-
-  font-size: 32px;
-  line-height: 39px;
-  font-weight: bold;
 }
 
 .catalog__search {
@@ -59,12 +54,4 @@
     color: #c4c4c4;
     opacity: 1;
   }
-}
-
-.catalog__list {
-  @include reset-list;
-
-  display: grid;
-  grid-template-columns: repeat(4, 210px);
-  gap: 40px;
 }
