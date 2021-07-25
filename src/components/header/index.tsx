@@ -1,3 +1,4 @@
+import { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles/header.scss';
@@ -12,7 +13,7 @@ interface HeaderProps {
 
 const Header = ({ openCartPanel }: HeaderProps) => {
 
-  const handleCartButtonClick = (evt: React.SyntheticEvent) => {
+  const handleCartButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
     openCartPanel();
   }
