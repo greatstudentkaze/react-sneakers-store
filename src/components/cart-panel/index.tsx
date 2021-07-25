@@ -1,6 +1,6 @@
-import React from 'react';
+import { useContext } from 'react';
 
-import { SneakersItem } from '../../interfaces/sneakers.interface';
+import { AppContext } from '../../context/app.context';
 
 import CartItem from '../cart-item';
 import './styles/cart-panel.scss';
@@ -9,8 +9,6 @@ import emptyBoxSrc from '../../assets/images/empty-box.png';
 
 interface CartPanelProps {
   close: () => void,
-  items: SneakersItem[],
-  removeItem: (id: SneakersItem['id']) => void,
 }
 
 const EmptyCart = ({ close }: { close: CartPanelProps['close'] }) => (
@@ -29,7 +27,9 @@ const EmptyCart = ({ close }: { close: CartPanelProps['close'] }) => (
   </div>
 );
 
-const CartPanel = ({ close, items, removeItem }: CartPanelProps) => {
+const CartPanel = ({ close }: CartPanelProps) => {
+  const { cartItems: items } = useContext(AppContext);
+
   return (
     <div className="overlay" onClick={close}>
       <section className="cart-panel" onClick={evt => evt.stopPropagation()}>
@@ -48,7 +48,6 @@ const CartPanel = ({ close, items, removeItem }: CartPanelProps) => {
                       price={item.price}
                       currency={item.currency}
                       id={item.id}
-                      remove={removeItem}
                     />
                   </li>
                 ))}
