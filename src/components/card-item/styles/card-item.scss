@@ -25,6 +25,14 @@
 
     transform: translateY(-10px);
   }
+
+  &--skeleton {
+    display: block;
+    width: 210px;
+    height: 262px;
+    padding-top: 36px;
+    padding-bottom: 37px;
+  }
 }
 
 .card-item__wishlist-button {
