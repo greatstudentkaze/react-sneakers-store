@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles/header.scss';
 import logoSrc from '../../assets/images/logo.svg';
@@ -20,9 +20,9 @@ const Header = ({ openCartPanel }: HeaderProps) => {
   return (
     <header className="header">
       <div className="header__container">
-        <a className="logo" href="/">
+        <Link className="logo" to="/">
           <img src={logoSrc} width="245" height="41" alt="Логотип React Sneakers" />
-        </a>
+        </Link>
         <nav>
           <ul className="user-list">
             <li className="user-list__item">
@@ -32,9 +32,9 @@ const Header = ({ openCartPanel }: HeaderProps) => {
               </a>
             </li>
             <li className="user-list__item user-list__item--icon">
-              <a href="/" style={{ backgroundImage: `url("${wishlistIconSrc}")` }}>
+              <Link to="/wishlist" style={{ backgroundImage: `url("${wishlistIconSrc}")` }}>
                 <span className="visually-hidden">Список желаний</span>
-              </a>
+              </Link>
             </li>
             <li className="user-list__item user-list__item--icon">
               <a href="/" style={{ backgroundImage: `url("${loginIconSrc}")` }}>
