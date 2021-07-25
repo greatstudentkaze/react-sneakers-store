@@ -7,7 +7,10 @@ interface State {
   data: any,
 }
 
-export type DataFetchAction = { type: 'FETCH_INIT' } | { type: 'FETCH_SUCCESS', payload: State['data'] } | { type: 'FETCH_FAILURE' };
+export type DataFetchAction = { type: 'FETCH_INIT' }
+  |  { type: 'FETCH_SUCCESS', payload: State['data'] }
+  |  { type: 'FETCH_FAILURE' }
+  |  { type: 'SET_DATA', payload: State['data'] };
 
 const dataFetchReducer = (state: State, action: DataFetchAction): State => {
   switch (action.type) {
@@ -29,6 +32,11 @@ const dataFetchReducer = (state: State, action: DataFetchAction): State => {
         ...state,
         isLoading: false,
         isError: true,
+      };
+    case 'SET_DATA':
+      return {
+        ...state,
+        data: action.payload,
       };
     default:
       return state;
@@ -70,7 +78,11 @@ const useDataAPI = <T>(initialURL: string, initialData: T) => {
     };
   }, [url]);
 
-  return [state, setURL] as const;
+  const setData = (data: State['data']) => {
+    dispatch({ type: 'SET_DATA', payload: data });
+  };
+
+  return [state, setURL, setData] as const;
 };
 
 export default useDataAPI;
