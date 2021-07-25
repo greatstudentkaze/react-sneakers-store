@@ -5,6 +5,15 @@
   max-width: 960px;
   margin-right: auto;
   margin-left: auto;
+
+  &--centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // minus header height and margin/paddings of main etc
+    height: calc(100vh - 122px - (85px + 45px) * 2);
+  }
 }
 
 .catalog__header {
