@@ -6,6 +6,7 @@ import { SneakersItem } from '../../interfaces/sneakers.interface';
 import CardItem from '../card-item';
 import CardItemSkeleton from '../card-item/skeleton';
 
+import '../card-item/styles/card-item.scss';
 import './styles/card-item-list.scss';
 
 interface CardItemListProps extends DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement> {

@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 
+import { AppContext } from '../../context/app.context';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
-
-import './styles/card-item.scss';
 
 type Props = SneakersItem & {
   index: number,
-  addItemToCart: (item: SneakersItem) => void,
-  removeItemFromCart: (id: SneakersItem['id']) => void,
+  isAddedToWishlist?: boolean,
 }
 
-const CardItem = ({ title, imageSrc, index, price, currency, id, addItemToCart, removeItemFromCart }: Props) => {
-  const [isWished, setIsWished] = useState(false);
+const CardItem = ({ title, imageSrc, index, price, currency, id, isAddedToWishlist = false }: Props) => {
+  const {
+    removeItemFromCartById,
+    addItemToCart
+  } = useContext(AppContext);
+
+  const [isWished, setIsWished] = useState(isAddedToWishlist);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   const handleWishButtonClick = () => {
@@ -20,7 +23,7 @@ const CardItem = ({ title, imageSrc, index, price, currency, id, addItemToCart, 
 
   const handleCartButtonClick = () => {
     isAddedToCart
-      ? removeItemFromCart(id)
+      ? removeItemFromCartById(id)
       : addItemToCart({ id, title, price, currency, imageSrc });
     setIsAddedToCart((prevState) => !prevState);
   };
