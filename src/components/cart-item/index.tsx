@@ -1,18 +1,19 @@
-import React from 'react';
+import { useContext } from 'react';
 
+import { AppContext } from '../../context/app.context';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 import './styles/cart-item.scss';
 
 type Props = SneakersItem & {
   index: number,
-  remove: (id: SneakersItem['id']) => void,
 }
 
-const CartItem = ({ title, imageSrc, index, price, remove, id }: Props) => {
+const CartItem = ({ title, imageSrc, index, price, id }: Props) => {
+  const { removeItemFromCartById } = useContext(AppContext);
 
   const handleRemoveButtonClick = () => {
-    remove(id);
+    removeItemFromCartById(id);
   };
 
   return (
