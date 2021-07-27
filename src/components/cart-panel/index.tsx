@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react';
 import axios from 'axios';
+import cn from 'classnames';
 
 import { AppContext, ICartContext } from '../../context/app.context';
 import { API } from '../../utils/api';
+import { formatRuPrice } from '../../utils/formatRuPrice';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 import CartItem from '../cart-item';
@@ -11,7 +13,6 @@ import InfoBlock from '../info-block';
 import './styles/cart-panel.scss';
 import emptyBoxSrc from '../../assets/images/empty-box.png';
 import orderConfirmedSrc from '../../assets/images/order-confirmed.png';
-import cn from 'classnames';
 
 interface CartPanelProps {
   isOpened: boolean,
@@ -27,7 +28,15 @@ interface OrderData {
 }
 
 // todo: refactor
-const renderCartPanelBody = (items: ICartContext['cartItems'], isOrderConfirmed: boolean, handleCartButtonClick: () => void, close: CartPanelProps['close'], orderData: OrderData | null, isLoading: boolean) => {
+const renderCartPanelBody = (
+  items: ICartContext['cartItems'],
+  isOrderConfirmed: boolean,
+  handleCartButtonClick: () => void,
+  close: CartPanelProps['close'],
+  orderData: OrderData | null,
+  isLoading: boolean,
+  totalPrice: number
+) => {
   if (items.length > 0) {
     return <>
       <ul className="cart-panel__list">
@@ -48,12 +57,12 @@ const renderCartPanelBody = (items: ICartContext['cartItems'], isOrderConfirmed:
         <p className="cart-panel__row">
           Итого:
           <span className="dots"/>
-          <span>21 498 руб.</span>
+          <span>{formatRuPrice(totalPrice)}</span>
         </p>
-        <p className="cart-panel__row">
-          Налог 5%:
+        <p className="cart-panel__row" title="Сумма вернётся Вам на карту в течение 7 дней с момента оплаты">
+          Кэшбэк 5%:
           <span className="dots"/>
-          <span>1 074 руб.</span>
+          <span>{formatRuPrice(Math.floor(totalPrice * 0.05))}</span>
         </p>
       </div>
       <button className="cart-panel__button" type="button" onClick={handleCartButtonClick} disabled={isLoading}>
@@ -85,7 +94,7 @@ const renderCartPanelBody = (items: ICartContext['cartItems'], isOrderConfirmed:
 };
 
 const CartPanel = ({ isOpened, close }: CartPanelProps) => {
-  const { cartItems: items, isLoading, showLoader, hideLoader, clearCart } = useContext(AppContext);
+  const { cartItems: items, totalPrice, isLoading, showLoader, hideLoader, clearCart } = useContext(AppContext);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const [orderData, setOrderData] = useState<OrderData | null>(null);
 
@@ -112,7 +121,7 @@ const CartPanel = ({ isOpened, close }: CartPanelProps) => {
     <div className={cn('overlay', { 'overlay--visible': isOpened })} onClick={close}>
       <section className={cn('cart-panel', { 'cart-panel--opened': isOpened })} onClick={evt => evt.stopPropagation()}>
         <h2 className="cart-panel__title">Корзина</h2>
-        {renderCartPanelBody(items, isOrderConfirmed, handleCartButtonClick, close, orderData, isLoading)}
+        {renderCartPanelBody(items, isOrderConfirmed, handleCartButtonClick, close, orderData, isLoading, totalPrice)}
       </section>
     </div>
   );

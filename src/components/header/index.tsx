@@ -1,5 +1,8 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import { AppContext } from '../../context/app.context';
+import { formatRuPrice } from '../../utils/formatRuPrice';
 
 import './styles/header.scss';
 import logoSrc from '../../assets/images/logo.svg';
@@ -12,6 +15,7 @@ interface HeaderProps {
 }
 
 const Header = ({ openCartPanel }: HeaderProps) => {
+  const { totalPrice } = useContext(AppContext);
 
   const handleCartButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
@@ -28,8 +32,8 @@ const Header = ({ openCartPanel }: HeaderProps) => {
           <ul className="user-list">
             <li className="user-list__item">
               <a href="/" style={{ backgroundImage: `url("${cartIconSrc}")` }} onClick={handleCartButtonClick}>
-                <span className="visually-hidden">Корзина:</span>
-                <span>1205 руб.</span>
+                <span className="visually-hidden">Корзина</span>
+                <span>{formatRuPrice(totalPrice)}</span>
               </a>
             </li>
             <li className="user-list__item user-list__item--icon">

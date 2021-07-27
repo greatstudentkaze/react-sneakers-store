@@ -21,6 +21,7 @@ export interface ICartContext {
   removeItemFromCartById: (id: SneakersItem['id']) => void,
   isItemAddedToCart: (itemId: SneakersItem['id']) => boolean,
   clearCart: () => void,
+  totalPrice: number,
 }
 
 export interface IWishlistContext {
@@ -50,6 +51,7 @@ const defaultValue = {
   removeItemFromWishlistById: () => {},
   addItemToWishlist: () => {},
   isItemWishlisted: () => false,
+  totalPrice: 0,
 };
 
 export const AppContext = createContext<IAppContext & ICartContext & IWishlistContext>(defaultValue);
@@ -67,6 +69,8 @@ export const AppContextProvider = (props: PropsWithChildren<AppContextProviderPr
   const { sneakers, isSneakersLoadingError, isLoading, areSneakersLoading, showLoader, hideLoader, children } = props;
 
   const [cartItems, setCartItems] = useState<SneakersItem[]>(getCartItemsFromLocalStorage);
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const [
     { isError: isWishlistError, isLoading: areWishlistItemsLoading, data: wishlistItems },
     doWishlistFetch,
@@ -74,6 +78,7 @@ export const AppContextProvider = (props: PropsWithChildren<AppContextProviderPr
   ] = useDataAPI<SneakersItem[]>(API.WISHLIST, []);
 
   useEffect(() => {
+    setTotalPrice(cartItems.reduce((total, item) => total + item.price, 0))
     saveCartItemsToLocalStorage(cartItems);
   }, [cartItems]);
 
@@ -138,6 +143,7 @@ export const AppContextProvider = (props: PropsWithChildren<AppContextProviderPr
       removeItemFromCartById,
       addItemToCart,
       isItemAddedToCart,
+      totalPrice,
       isWishlistError,
       areWishlistItemsLoading,
       wishlistItems,
