@@ -8,7 +8,7 @@ import App from './components/app';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/react-sneakers-store">
       <Scrollbars
         style={{ height: '100vh' }}
         autoHide
