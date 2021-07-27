@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
 import { AppContext } from '../../context/app.context';
+import { formatRuPrice } from '../../utils/formatRuPrice';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 import './styles/cart-item.scss';
@@ -23,8 +24,7 @@ const CartItem = ({ title, imageSrc, index, price, id }: Props) => {
       </a>
       <h3 className="cart-item__title" id={`cart-item-title-${index}`}>{title}</h3>
       <p className="cart-item__price" aria-label="Цена">
-        {/*todo: format price 12 999 руб.*/}
-        {price}
+        {formatRuPrice(price)}
       </p>
       <button className="cart-item__remove-button" type="button" onClick={handleRemoveButtonClick}>
         <span className="visually-hidden">Удалить из корзину</span>

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import cn from 'classnames';
 
 import { AppContext } from '../../context/app.context';
+import { formatRuPrice } from '../../utils/formatRuPrice';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 type Props = SneakersItem & {
@@ -61,8 +62,7 @@ const CardItem = ({ title, imageSrc, index, price, currency, id, uid }: Props) =
       <footer className="card-item__footer">
         <p className="card-item__price">
           Цена:
-          {/*todo: format price 12 999 руб.*/}
-          <span>{price}</span>
+          <span>{formatRuPrice(price)}</span>
         </p>
         <button
           className={cn('card-item__cart-button', {
