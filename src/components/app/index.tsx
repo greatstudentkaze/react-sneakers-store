@@ -37,7 +37,7 @@ const App = () => {
           <Wishlist />
         </Route>
       </div>
-      {isCartPanelOpened && <CartPanel close={closeCartPanel} />}
+      <CartPanel isOpened={isCartPanelOpened} close={closeCartPanel} />
       <Loader className={cn({ 'active': isLoading })} />
 
     </AppContextProvider>

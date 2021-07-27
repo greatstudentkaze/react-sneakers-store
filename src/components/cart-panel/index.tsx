@@ -11,8 +11,10 @@ import InfoBlock from '../info-block';
 import './styles/cart-panel.scss';
 import emptyBoxSrc from '../../assets/images/empty-box.png';
 import orderConfirmedSrc from '../../assets/images/order-confirmed.png';
+import cn from 'classnames';
 
 interface CartPanelProps {
+  isOpened: boolean,
   close: () => void,
 }
 
@@ -82,7 +84,7 @@ const renderCartPanelBody = (items: ICartContext['cartItems'], isOrderConfirmed:
   />;
 };
 
-const CartPanel = ({ close }: CartPanelProps) => {
+const CartPanel = ({ isOpened, close }: CartPanelProps) => {
   const { cartItems: items, isLoading, showLoader, hideLoader, clearCart } = useContext(AppContext);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const [orderData, setOrderData] = useState<OrderData | null>(null);
@@ -107,8 +109,8 @@ const CartPanel = ({ close }: CartPanelProps) => {
   };
 
   return (
-    <div className="overlay" onClick={close}>
-      <section className="cart-panel" onClick={evt => evt.stopPropagation()}>
+    <div className={cn('overlay', { 'overlay--visible': isOpened })} onClick={close}>
+      <section className={cn('cart-panel', { 'cart-panel--opened': isOpened })} onClick={evt => evt.stopPropagation()}>
         <h2 className="cart-panel__title">Корзина</h2>
         {renderCartPanelBody(items, isOrderConfirmed, handleCartButtonClick, close, orderData, isLoading)}
       </section>
