@@ -9,6 +9,7 @@ import { SneakersItem } from '../../interfaces/sneakers.interface';
 
 import CartItem from '../cart-item';
 import InfoBlock from '../info-block';
+import Button from '../button';
 
 import './styles/cart-panel.scss';
 import emptyBoxSrc from '../../assets/images/empty-box.png';
@@ -65,13 +66,9 @@ const renderCartPanelBody = (
           <span>{formatRuPrice(Math.floor(totalPrice * 0.05))}</span>
         </p>
       </div>
-      <button className="cart-panel__button" type="button" onClick={handleCartButtonClick} disabled={isLoading}>
+      <Button onClick={handleCartButtonClick} disabled={isLoading} arrowDirection="right">
         Оформить заказ
-        <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M1 7H14.7143" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M8.71436 1L14.7144 7L8.71436 13" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
+      </Button>
     </>;
   }
 

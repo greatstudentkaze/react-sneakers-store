@@ -1,0 +1,65 @@
+@import "../../../styles/variables";
+
+.button {
+  position: relative;
+  
+  display: block;
+  padding: 18px;
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  color: $white;
+
+  background-color: $light-green;
+  border: none;
+  border-radius: 18px;
+
+  cursor: pointer;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+
+    display: block;
+    width: 16px;
+    height: 14px;
+
+    transition: transform 0.3s ease-in-out 0s;
+  }
+
+  &:enabled:hover,
+  &:focus-visible {
+    svg {
+      transform: translateY(-50%) translateX(5px);
+    }
+  }
+
+  &:disabled {
+    background-color: #bebebe;
+
+    cursor: not-allowed;
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+
+  &--arrow-left {
+    padding-left: 40px;
+
+    svg {
+      right: auto;
+      left: 30px;
+    }
+
+    &:enabled:hover,
+    &:focus-visible {
+      svg {
+        transform: translateY(-50%) translateX(-5px);
+      }
+    }
+  }
+}
