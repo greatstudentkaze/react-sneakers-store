@@ -1,4 +1,5 @@
 @import "../mixins";
+@import "../variables";
 
 .user-list {
   @include reset-list;
@@ -8,6 +9,8 @@
 }
 
 .user-list__item {
+  position: relative;
+
   &:not(:last-child) {
     margin-right: 30px;
   }
@@ -29,12 +32,21 @@
 
     &[href]:hover,
     &[href]:focus {
-      opacity: 0.8;
-      transform: scale(1.1);
+      &:not(.with-popup) {
+        opacity: 0.8;
+        transform: scale(1.1);
+      }
+
+      .user-list__popup {
+        visibility: visible;
+        opacity: 1;
+      }
     }
 
     &[href]:active {
-      opacity: 0.6;
+      &:not(.with-popup) {
+        opacity: 0.6;
+      }
     }
 
     span {
@@ -52,5 +64,76 @@
 
       background-position: center;
     }
+  }
+}
+
+.user-list__popup {
+  position: absolute;
+  bottom: -110px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  width: 150px;
+  padding: 20px 10px;
+
+  background-color: $white;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+
+  transition: visibility 0.3s ease-in-out 0s, opacity 0.3s ease-in-out 0s;
+  visibility: hidden;
+  opacity: 0;
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 5px;
+
+    font-size: 16px;
+    line-height: 18px;
+
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out 0s;
+
+    &:enabled:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+
+    &:enabled:active {
+      opacity: 0.7;
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: 5px;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+
+    display: block;
+    width: 10px;
+    height: 10px;
+
+    background-color: $white;
+    border: inherit;
+    border-top-left-radius: 3px;
+    border-bottom-color: $white;
+    border-right-color: $white;
+  }
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
   }
 }
