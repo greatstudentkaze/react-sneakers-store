@@ -18,9 +18,10 @@ interface InfoBlockProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement
   },
   buttonText?: string,
   onButtonClick?: () => void,
+  isNotGoBack?: boolean,
 }
 
-const InfoBlock = ({ title, description, imageData, buttonText = 'Вернуться назад', onButtonClick, className, ...props }: InfoBlockProps) => {
+const InfoBlock = ({ title, description, imageData, buttonText = 'Вернуться назад', onButtonClick, className, isNotGoBack, ...props }: InfoBlockProps) => {
   const history = useHistory();
 
   const handleClick = onButtonClick ? onButtonClick : () => history.push(AppRoute.ROOT);
@@ -30,7 +31,7 @@ const InfoBlock = ({ title, description, imageData, buttonText = 'Вернуть
       <img className="info-block__image" src={imageData.src} width={imageData.width} height={imageData.height} alt="" />
       <p className="info-block__title">{title}</p>
       <p className="info-block__info">{description}</p>
-      <Button className="info-block__button" onClick={handleClick} arrowDirection="left">
+      <Button className="info-block__button" onClick={handleClick} arrowDirection={!isNotGoBack && 'left'}>
         {buttonText}
       </Button>
     </div>

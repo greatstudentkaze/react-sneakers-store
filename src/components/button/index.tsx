@@ -4,7 +4,7 @@ import cn from 'classnames';
 import './styles/button.scss';
 
 interface ButtonProps extends DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  arrowDirection?: 'right' | 'left',
+  arrowDirection?: 'right' | 'left' | false,
   uppercase?: boolean,
   disabled?: boolean,
   children: ReactNode,
