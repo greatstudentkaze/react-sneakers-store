@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import { AppContext } from '../../context/app.context';
@@ -48,7 +49,7 @@ const CardItem = ({ title, imageSrc, index, price, currency, id, uid }: Props) =
           <path d="M14.585 3.223a4.299 4.299 0 00-.949-1.37A4.453 4.453 0 0010.53.6a4.478 4.478 0 00-2.795.978A4.478 4.478 0 004.94.6a4.453 4.453 0 00-3.107 1.254c-.404.39-.726.855-.949 1.37a4.213 4.213 0 00-.35 1.684c0 .551.114 1.125.339 1.709.188.488.458.994.803 1.505.547.809 1.299 1.652 2.232 2.507a24.93 24.93 0 003.144 2.437l.395.25c.175.112.4.112.575 0l.395-.25a25.244 25.244 0 003.144-2.437c.933-.855 1.685-1.698 2.231-2.507a7.537 7.537 0 00.804-1.505 4.752 4.752 0 00.338-1.709 4.182 4.182 0 00-.348-1.685z"/>
         </svg>
       </button>
-      <a className="card-item__link" href="/">
+      <Link className="card-item__link" to="/">
         <img
           className="card-item__image"
           src={imageSrc['1x']} srcSet={`${imageSrc['2x']} 2x`}
@@ -57,7 +58,7 @@ const CardItem = ({ title, imageSrc, index, price, currency, id, uid }: Props) =
           alt=""
           aria-labelledby={`title-${index}`}
         />
-      </a>
+      </Link>
       <h3 className="card-item__title" id={`title-${index}`}>{title}</h3>
       <footer className="card-item__footer">
         <p className="card-item__price">
