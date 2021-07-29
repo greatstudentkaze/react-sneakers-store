@@ -2,6 +2,7 @@ import { SyntheticEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AppContext } from '../../context/app.context';
+import { AppRoute } from '../../const';
 import { formatRuPrice } from '../../utils/formatRuPrice';
 
 import './styles/header.scss';
@@ -25,7 +26,7 @@ const Header = ({ openCartPanel }: HeaderProps) => {
   return (
     <header className="header">
       <div className="header__container">
-        <Link className="logo" to="/">
+        <Link className="logo" to={AppRoute.ROOT}>
           <img src={logoSrc} width="245" height="41" alt="Логотип React Sneakers" />
         </Link>
         <nav>
@@ -37,14 +38,14 @@ const Header = ({ openCartPanel }: HeaderProps) => {
               </a>
             </li>
             <li className="user-list__item user-list__item--icon">
-              <Link to="/wishlist" style={{ backgroundImage: `url("${wishlistIconSrc}")` }}>
+              <Link to={AppRoute.WISHLIST} style={{ backgroundImage: `url("${wishlistIconSrc}")` }}>
                 <span className="visually-hidden">Список желаний</span>
               </Link>
             </li>
             <li className="user-list__item user-list__item--icon">
-              <a href="/" style={{ backgroundImage: `url("${loginIconSrc}")` }}>
+              <Link to={AppRoute.PROFILE} style={{ backgroundImage: `url("${loginIconSrc}")` }}>
                 <span className="visually-hidden">Вход</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
