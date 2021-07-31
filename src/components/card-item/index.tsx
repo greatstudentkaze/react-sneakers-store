@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import { AppContext } from '../../context/app.context';
+import { CartContext } from '../../context/cart.context';
 import { formatRuPrice } from '../../utils/formatRuPrice';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
 
@@ -16,13 +17,16 @@ type Props = SneakersItem & {
 
 const CardItem = ({ title, imageSrc, index, price, currency, id }: Props) => {
   const {
-    removeItemFromCartById,
-    addItemToCart,
-    isItemAddedToCart,
     addItemToWishlist,
     removeItemFromWishlistById,
     isItemWishlisted,
   } = useContext(AppContext);
+  const {
+    removeItemFromCartById,
+    addItemToCart,
+    isItemAddedToCart,
+  } = useContext(CartContext);
+
   const isAddedToCart = isItemAddedToCart(id);
   const isWished = isItemWishlisted(id);
 

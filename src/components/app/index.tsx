@@ -17,6 +17,7 @@ import Home from '../../screens/home';
 import Wishlist from '../../screens/wishlist';
 import Profile from '../../screens/profile';
 import Loader from '../loader';
+import { CartContextProvider } from '../../context/cart.context';
 
 type Data = SneakersItem[];
 
@@ -31,22 +32,24 @@ const App = () => {
 
   return (
     <UserContextProvider>
-      <AppContextProvider sneakers={data} areSneakersLoading={areSneakersLoading} isSneakersLoadingError={isError} isLoading={isLoading} showLoader={showLoader} hideLoader={hideLoader}>
-        <div className="main-wrapper">
-          <Header openCartPanel={openCartPanel} />
-          <Route path={AppRoute.ROOT} exact>
-            <Home />
-          </Route>
-          <Route path={AppRoute.WISHLIST} exact>
-            <Wishlist />
-          </Route>
-          <Route path={AppRoute.PROFILE} exact>
-            <Profile />
-          </Route>
-        </div>
-        <CartPanel isOpened={isCartPanelOpened} close={closeCartPanel} />
-        <Loader className={cn({ 'active': isLoading })} />
-      </AppContextProvider>
+      <CartContextProvider>
+        <AppContextProvider sneakers={data} areSneakersLoading={areSneakersLoading} isSneakersLoadingError={isError} isLoading={isLoading} showLoader={showLoader} hideLoader={hideLoader}>
+          <div className="main-wrapper">
+            <Header openCartPanel={openCartPanel} />
+            <Route path={AppRoute.ROOT} exact>
+              <Home />
+            </Route>
+            <Route path={AppRoute.WISHLIST} exact>
+              <Wishlist />
+            </Route>
+            <Route path={AppRoute.PROFILE} exact>
+              <Profile />
+            </Route>
+          </div>
+          <CartPanel isOpened={isCartPanelOpened} close={closeCartPanel} />
+          <Loader className={cn({ 'active': isLoading })} />
+        </AppContextProvider>
+      </CartContextProvider>
     </UserContextProvider>
   );
 };

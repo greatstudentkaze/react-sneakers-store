@@ -2,7 +2,8 @@ import { useContext, useState } from 'react';
 import axios from 'axios';
 import cn from 'classnames';
 
-import { AppContext, ICartContext } from '../../context/app.context';
+import { AppContext } from '../../context/app.context';
+import { CartContext, ICartContext } from '../../context/cart.context';
 import { API } from '../../utils/api';
 import { formatRuPrice } from '../../utils/formatRuPrice';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
@@ -91,7 +92,8 @@ const renderCartPanelBody = (
 };
 
 const CartPanel = ({ isOpened, close }: CartPanelProps) => {
-  const { cartItems: items, totalPrice, isLoading, showLoader, hideLoader, clearCart } = useContext(AppContext);
+  const { isLoading, showLoader, hideLoader } = useContext(AppContext);
+  const { cartItems: items, totalPrice, clearCart } = useContext(CartContext);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
   const [orderData, setOrderData] = useState<OrderData | null>(null);
 

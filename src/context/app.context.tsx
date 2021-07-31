@@ -1,8 +1,7 @@
-import { createContext, PropsWithChildren, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect } from 'react';
 
 import useDataAPI from '../hooks/useDataAPI';
 import { API } from '../utils/api';
-import { getCartItemsFromLocalStorage, saveCartItemsToLocalStorage } from '../utils/cart';
 import { SneakersItem } from '../interfaces/sneakers.interface';
 import axios from 'axios';
 
@@ -13,15 +12,6 @@ export interface IAppContext {
   isLoading: boolean,
   showLoader: () => void,
   hideLoader: () => void,
-}
-
-export interface ICartContext {
-  cartItems: SneakersItem[],
-  addItemToCart: (item: SneakersItem) => void,
-  removeItemFromCartById: (id: SneakersItem['id']) => void,
-  isItemAddedToCart: (itemId: SneakersItem['id']) => boolean,
-  clearCart: () => void,
-  totalPrice: number,
 }
 
 export interface IWishlistContext {
@@ -40,21 +30,15 @@ const defaultValue = {
   isLoading: false,
   showLoader: () => {},
   hideLoader: () => {},
-  cartItems: [],
-  removeItemFromCartById: () => {},
-  addItemToCart: () => {},
-  isItemAddedToCart: () => false,
-  clearCart: () => {},
   wishlistItems: [],
   areWishlistItemsLoading: false,
   isWishlistError: false,
   removeItemFromWishlistById: () => {},
   addItemToWishlist: () => {},
   isItemWishlisted: () => false,
-  totalPrice: 0,
 };
 
-export const AppContext = createContext<IAppContext & ICartContext & IWishlistContext>(defaultValue);
+export const AppContext = createContext<IAppContext & IWishlistContext>(defaultValue);
 
 type AppContextProviderProps = {
   sneakers: SneakersItem[],
@@ -68,34 +52,11 @@ type AppContextProviderProps = {
 export const AppContextProvider = (props: PropsWithChildren<AppContextProviderProps>): JSX.Element => {
   const { sneakers, isSneakersLoadingError, isLoading, areSneakersLoading, showLoader, hideLoader, children } = props;
 
-  const [cartItems, setCartItems] = useState<SneakersItem[]>(getCartItemsFromLocalStorage);
-  const [totalPrice, setTotalPrice] = useState(0);
-
   const [
     { isError: isWishlistError, isLoading: areWishlistItemsLoading, data: wishlistItems },
     doWishlistFetch,
     setWishlistItems
   ] = useDataAPI<SneakersItem[]>(API.WISHLIST, []);
-
-  useEffect(() => {
-    setTotalPrice(cartItems.reduce((total, item) => total + item.price, 0))
-    saveCartItemsToLocalStorage(cartItems);
-  }, [cartItems]);
-
-  const removeItemFromCartById = (id: SneakersItem['id']) => {
-    const updated = cartItems.filter(it => it.id !== id);
-    setCartItems(updated);
-  };
-
-  const clearCart = () => setCartItems([]);
-
-  const addItemToCart = (item: SneakersItem) => {
-    setCartItems((prevItems) => [...prevItems, item]);
-  };
-
-  const isItemAddedToCart = (itemId: SneakersItem['id']) => {
-    return cartItems.some(it => it.id === itemId);
-  };
 
   useEffect(() => {
     doWishlistFetch(API.WISHLIST);
@@ -138,12 +99,6 @@ export const AppContextProvider = (props: PropsWithChildren<AppContextProviderPr
       isLoading,
       showLoader,
       hideLoader,
-      cartItems,
-      clearCart,
-      removeItemFromCartById,
-      addItemToCart,
-      isItemAddedToCart,
-      totalPrice,
       isWishlistError,
       areWishlistItemsLoading,
       wishlistItems,

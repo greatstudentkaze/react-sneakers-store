@@ -2,7 +2,7 @@ import { SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { UserContext } from '../../context/user.context';
-import { AppContext } from '../../context/app.context';
+import { CartContext } from '../../context/cart.context';
 import { AppRoute } from '../../const';
 import { formatRuPrice } from '../../utils/formatRuPrice';
 
@@ -23,7 +23,7 @@ const AuthButtonText = {
 
 const Header = ({ openCartPanel }: HeaderProps) => {
   const { user, logout, login } = useContext(UserContext);
-  const { totalPrice } = useContext(AppContext);
+  const { totalPrice } = useContext(CartContext);
   const [authButtonText, setAuthButtonText] = useState(AuthButtonText.LOGIN);
 
   const history = useHistory();
