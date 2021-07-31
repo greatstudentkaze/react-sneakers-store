@@ -67,4 +67,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - React hooks
 - BEM-naming
 - axios
+- Swiper
 - react-content-loader (Skeleton)
