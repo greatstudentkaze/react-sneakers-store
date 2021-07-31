@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { AppContext } from '../../context/app.context';
+import { WishlistContext } from '../../context/wishlist.context';
 import { CartContext } from '../../context/cart.context';
 import { formatRuPrice } from '../../utils/formatRuPrice';
 import { SneakersItem } from '../../interfaces/sneakers.interface';
@@ -20,7 +20,7 @@ const CardItem = ({ title, imageSrc, index, price, currency, id }: Props) => {
     addItemToWishlist,
     removeItemFromWishlistById,
     isItemWishlisted,
-  } = useContext(AppContext);
+  } = useContext(WishlistContext);
   const {
     removeItemFromCartById,
     addItemToCart,

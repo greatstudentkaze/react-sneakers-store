@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { AppContext } from '../../context/app.context';
+import { WishlistContext } from '../../context/wishlist.context';
 
 import Section from '../../components/section';
 import CardItemList from '../../components/card-item-list';
@@ -13,7 +13,7 @@ const Wishlist = () => {
   const {
     wishlistItems: items,
     areWishlistItemsLoading: isLoading
-  } = useContext(AppContext);
+  } = useContext(WishlistContext);
 
   if (!items.length) {
     return (
@@ -35,7 +35,7 @@ const Wishlist = () => {
 };
 
 const WishlistScreen = () => {
-  const { isWishlistError: isError } = useContext(AppContext);
+  const { isWishlistError: isError } = useContext(WishlistContext);
 
   return (
     <main className="main">
