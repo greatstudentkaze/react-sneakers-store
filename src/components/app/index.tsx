@@ -32,28 +32,28 @@ const App = () => {
   }, [doFetch]);
 
   return (
-    <UserContextProvider>
-      <CartContextProvider>
         <AppContextProvider sneakers={data} areSneakersLoading={areSneakersLoading} isSneakersLoadingError={isError} isLoading={isLoading} showLoader={showLoader} hideLoader={hideLoader}>
-          <WishlistContextProvider>
-            <div className="main-wrapper">
-              <Header openCartPanel={openCartPanel} />
-              <Route path={AppRoute.ROOT} exact>
-                <Home />
-              </Route>
-              <Route path={AppRoute.WISHLIST} exact>
-                <Wishlist />
-              </Route>
-              <Route path={AppRoute.PROFILE} exact>
-                <Profile />
-              </Route>
-            </div>
-            <CartPanel isOpened={isCartPanelOpened} close={closeCartPanel} />
-            <Loader className={cn({ 'active': isLoading })} />
-          </WishlistContextProvider>
+          <UserContextProvider>
+            <WishlistContextProvider>
+              <CartContextProvider>
+                <div className="main-wrapper">
+                  <Header openCartPanel={openCartPanel} />
+                  <Route path={AppRoute.ROOT} exact>
+                    <Home />
+                  </Route>
+                  <Route path={AppRoute.WISHLIST} exact>
+                    <Wishlist />
+                  </Route>
+                  <Route path={AppRoute.PROFILE} exact>
+                    <Profile />
+                  </Route>
+                </div>
+                <CartPanel isOpened={isCartPanelOpened} close={closeCartPanel} />
+              </CartContextProvider>
+            </WishlistContextProvider>
+          </UserContextProvider>
+          <Loader className={cn({ 'active': isLoading })} />
         </AppContextProvider>
-      </CartContextProvider>
-    </UserContextProvider>
   );
 };
 
