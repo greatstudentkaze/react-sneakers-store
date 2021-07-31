@@ -19,6 +19,8 @@ import './orders.scss';
 const Profile = () => {
   const [{ isError, isLoading, data: orders }, doFetch,] = useDataAPI<OrderItem[]>(API.ORDERS, []);
 
+  const sortedOrders = [...orders].sort((a, b) => (Date.parse(b.createdAt) - Date.parse(a.createdAt)));
+
   useEffect(() => {
     doFetch(API.ORDERS);
   }, [doFetch]);
@@ -41,7 +43,7 @@ const Profile = () => {
 
   return (
     <Section className="orders" title={'Мои заказы'}>
-      {orders.map((order: OrderItem) => (
+      {sortedOrders.map((order: OrderItem) => (
         <div className="orders__item order-item" key={order.id}>
           <HeadingTag className="order-item__title" level="3">
             Заказ #{order.id}
