@@ -1,6 +1,22 @@
-# Getting Started with Create React App
+# [React Sneakers Store](https://greatstudentkaze.github.io/react-sneakers-store)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## How to use
+
+Clone the repository:  
+`git clone git@github.com:greatstudentkaze/react-sneakers-store.git`
+
+Install dependencies:  
+`npm install`
+
+Run the app in the development mode:  
+`npm start`
+
+Build the app for production to the `build` folder:  
+`npm run build`
+
+---
 
 ## Available Scripts
 
@@ -39,8 +55,16 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Tech stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React.js
+- TypeScript
+- SCSS
+- react-router-dom
+- React Context API
+- React hooks
+- BEM-naming
+- axios
+- react-content-loader (Skeleton)
