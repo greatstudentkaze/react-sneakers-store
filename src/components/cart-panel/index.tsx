@@ -101,10 +101,10 @@ const CartPanel = ({ isOpened, close }: CartPanelProps) => {
     showLoader();
 
     try {
-      const { data } = await axios.post(API.ORDERS, { clientId: '000', items });
+      const { data } = await axios.post(API.ORDERS, { clientId: '000', items, createdAt: Date.now() });
 
-      clearCart();
       setIsOrderConfirmed(true);
+      clearCart();
       setOrderData(data);
 
       setTimeout(close, 10000);
